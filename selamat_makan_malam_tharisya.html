@@ -1,0 +1,315 @@
+
+<style>
+  @keyframes float {
+    0%,100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-18px) rotate(5deg); }
+  }
+  @keyframes float2 {
+    0%,100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(-4deg); }
+  }
+  @keyframes sparkle {
+    0%,100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+  @keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+  @keyframes fadeSlideIn {
+    0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  @keyframes twinkle {
+    0%,100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.4); }
+  }
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes petal-fall {
+    0% { transform: translateY(-30px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(120px) rotate(360deg); opacity: 0; }
+  }
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  @keyframes bounce-in {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+
+  .page {
+    min-height: 520px;
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4ef 40%, #ffd6e8 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+  }
+
+  .star {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #f48fb1;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation: twinkle var(--d, 2s) var(--delay, 0s) infinite;
+  }
+
+  .heart-float {
+    position: absolute;
+    font-size: 22px;
+    animation: float var(--dur, 3s) var(--del, 0s) infinite ease-in-out;
+    filter: drop-shadow(0 2px 4px rgba(244, 100, 140, 0.3));
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .btn-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    animation: fadeSlideIn 0.8s ease both;
+  }
+
+  .btn-icon {
+    font-size: 56px;
+    animation: heartbeat 1.4s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(244, 100, 140, 0.5));
+  }
+
+  .btn-label {
+    font-size: 15px;
+    color: #c2185b;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .open-btn {
+    background: linear-gradient(135deg, #f06292 0%, #e91e8c 100%);
+    color: white;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(233, 30, 140, 0.4);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .open-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(233, 30, 140, 0.5);
+  }
+  .open-btn:active {
+    transform: scale(0.97);
+  }
+  .pulse-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50px;
+    border: 2px solid #f06292;
+    animation: pulse-ring 1.5s ease-out infinite;
+  }
+
+  .card {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+    text-align: center;
+    animation: bounce-in 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+    max-width: 440px;
+    width: 100%;
+  }
+  .card.show { display: flex; }
+
+  .card-title {
+    font-size: 13px;
+    color: #e91e8c;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .crown {
+    font-size: 44px;
+    animation: float 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(255, 170, 50, 0.6));
+  }
+
+  .name-text {
+    font-size: 36px;
+    font-weight: 500;
+    background: linear-gradient(90deg, #c2185b, #e91e8c, #f48fb1, #e91e8c, #c2185b);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 2.5s linear infinite;
+    line-height: 1.2;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #f48fb1, transparent);
+  }
+  .divider-heart { font-size: 16px; animation: heartbeat 1.2s ease-in-out infinite; }
+
+  .message-box {
+    background: rgba(255,255,255,0.7);
+    border: 1px solid #f8bbd9;
+    border-radius: 16px;
+    padding: 1.2rem 1.5rem;
+    width: 100%;
+  }
+  .message-box p {
+    margin: 0 0 0.5rem;
+    font-size: 15px;
+    color: #880e4f;
+    line-height: 1.7;
+  }
+  .message-box p:last-child { margin-bottom: 0; }
+
+  .dinner-icons {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 30px;
+  }
+  .dinner-icons span {
+    animation: float var(--d) var(--dl) infinite ease-in-out;
+    filter: drop-shadow(0 3px 6px rgba(244,100,140,0.3));
+    display: inline-block;
+  }
+
+  .footer-note {
+    font-size: 13px;
+    color: #c2185b;
+    opacity: 0.8;
+    font-style: italic;
+  }
+
+  .petal {
+    position: absolute;
+    width: 10px;
+    height: 14px;
+    background: radial-gradient(ellipse at 40% 30%, #f9a8d4, #ec4899);
+    border-radius: 50% 10% 50% 10%;
+    opacity: 0;
+    animation: petal-fall var(--pd, 4s) var(--pdelay, 0s) infinite linear;
+    pointer-events: none;
+  }
+</style>
+
+<div class="page" id="page">
+  <div class="star" style="top:8%;left:10%;--d:1.8s;--delay:0s;background:#f48fb1;"></div>
+  <div class="star" style="top:15%;left:82%;--d:2.3s;--delay:0.4s;background:#ec407a;"></div>
+  <div class="star" style="top:75%;left:7%;--d:1.6s;--delay:0.8s;background:#f06292;"></div>
+  <div class="star" style="top:80%;left:88%;--d:2.1s;--delay:0.2s;background:#f48fb1;"></div>
+  <div class="star" style="top:50%;left:5%;--d:2.5s;--delay:1s;background:#e91e8c;width:6px;height:6px;"></div>
+  <div class="star" style="top:30%;left:92%;--d:1.9s;--delay:0.6s;width:6px;height:6px;"></div>
+
+  <div class="heart-float" style="top:5%;left:3%;--dur:3.2s;--del:0s;">🌸</div>
+  <div class="heart-float" style="top:5%;right:4%;--dur:2.8s;--del:0.5s;">💕</div>
+  <div class="heart-float" style="bottom:8%;left:5%;--dur:3.5s;--del:1s;">🌷</div>
+  <div class="heart-float" style="bottom:8%;right:5%;--dur:3s;--del:0.3s;">✨</div>
+  <div class="heart-float" style="top:40%;left:1%;--dur:2.6s;--del:0.8s;font-size:16px;">💗</div>
+  <div class="heart-float" style="top:40%;right:1%;--dur:3.1s;--del:1.2s;font-size:16px;">🌺</div>
+
+  <div class="petal" style="left:15%;--pd:4.2s;--pdelay:0s;top:-20px;"></div>
+  <div class="petal" style="left:35%;--pd:3.8s;--pdelay:1s;top:-20px;"></div>
+  <div class="petal" style="left:55%;--pd:4.5s;--pdelay:0.5s;top:-20px;background:radial-gradient(ellipse,#fce4ec,#f48fb1);"></div>
+  <div class="petal" style="left:72%;--pd:3.5s;--pdelay:1.8s;top:-20px;"></div>
+  <div class="petal" style="left:88%;--pd:4.1s;--pdelay:0.8s;top:-20px;background:radial-gradient(ellipse,#fce4ec,#f48fb1);"></div>
+
+  <div class="btn-wrap" id="btnWrap">
+    <div class="btn-icon">💌</div>
+    <div class="btn-label">Ada pesan untukmu, Princess</div>
+    <div style="position:relative; display:inline-block;">
+      <div class="pulse-ring"></div>
+      <button class="open-btn" onclick="showCard()">Buka Sekarang 💖</button>
+    </div>
+  </div>
+
+  <div class="card" id="card">
+    <div class="card-title">✦ Spesial Untukmu ✦</div>
+    <div class="crown">👑</div>
+    <div class="name-text">Princess Tharisya</div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-heart">💗</div>
+      <div class="divider-line"></div>
+    </div>
+    <div class="dinner-icons">
+      <span style="--d:2.5s;--dl:0s;">🕯️</span>
+      <span style="--d:3s;--dl:0.3s;">🍽️</span>
+      <span style="--d:2.8s;--dl:0.6s;">🌹</span>
+      <span style="--d:3.2s;--dl:0.2s;">🍷</span>
+      <span style="--d:2.6s;--dl:0.8s;">🕯️</span>
+    </div>
+    <div class="message-box">
+      <p>Selamat Makan Malam, Princess Tharisya 🌸</p>
+      <p>Semoga malam ini penuh dengan kehangatan, kebahagiaan, dan cinta yang tak terhingga.</p>
+      <p>Setiap momen bersamamu terasa seperti dongeng yang paling indah. Kamu adalah cahaya yang menerangi malamku 💕</p>
+    </div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-heart">🌷</div>
+      <div class="divider-line"></div>
+    </div>
+    <div class="footer-note">Dikirim dengan sepenuh hati, hanya untukmu ✨</div>
+  </div>
+</div>
+
+<script>
+function showCard() {
+  document.getElementById('btnWrap').style.display = 'none';
+  const card = document.getElementById('card');
+  card.classList.add('show');
+  spawnHearts();
+}
+
+function spawnHearts() {
+  const page = document.getElementById('page');
+  const symbols = ['💗','💕','🌸','✨','💖','🌷','💝'];
+  for (let i = 0; i < 12; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.style.cssText = `
+        position:absolute;
+        font-size:${16 + Math.random()*14}px;
+        left:${Math.random()*90}%;
+        top:${Math.random()*80}%;
+        pointer-events:none;
+        animation:sparkle ${0.8+Math.random()*0.8}s ease both;
+        z-index:10;
+        user-select:none;
+      `;
+      el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+      page.appendChild(el);
+      setTimeout(() => el.remove(), 1600);
+    }, i * 100);
+  }
+}
+</script>
